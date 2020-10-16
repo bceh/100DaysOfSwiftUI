@@ -68,3 +68,136 @@ Any type of variable can be included in a string with a backslash, `\`, followed
 str = "pi equals to \(pi), and it is \(real)"
 print(str)
 ```
+
+## Day 2
+
+### Array
+
+The array starts and ends with *brackets*, with each item in the array separated by a *comma*.
+
+```swift
+let john = "John Lennon"
+let paul = "Paul McCartney"
+let george = "George Harrison"
+let ringo = "Ringo Starr"
+
+let beatles = [john, paul, george, ringo]
+```
+
+Array can be indexed with a bracket and the index is counted from 0.
+
+```swift
+beatles[0] //output 'John Lennon'
+```
+
+### Set
+
+Items in a set **aren’t stored in any order**; they are stored in what is effectively a random order.
+
+Swift makes no guarantees about its order.
+
+The value can't be read by indices.
+
+No item can appear twice in a set; all items must be **unique**.
+
+Duplicate items, which inserted into a set, will get ignored.
+
+It can be created directly from arrays
+
+```swift
+let colors = Set(["red", "green", "blue"])
+```
+
+### Tuple:
+
+The tuple starts and end with parentheses `()`, with each `key : value` pair in the  tuple separated by a *comma*.
+
+1. Tuple are fixed in size;
+2. The values can be accessed (read and edit) by given indeces or names
+
+    ```swift
+    var pop = (first: "Taylor", last: "Swift", age : 25)
+    pop.0      //return "Taylor"
+    pop.first  //return "Taylor"
+    ```
+
+### Dictionary:
+
+The directionary starts and ends with *brackets* `[]`, with each `key : value` pair in the directionary separated by a *comma*. 
+
+Dictionary can only be accessed by `key`
+
+The `key` can be any tpyes, usually, string is used. 
+
+```swift
+let heights = [
+    "Taylor Swift": 1.78,
+    "Ed Sheeran": 1.73
+]
+```
+
+A default value can be given when try to access a directionary by the keyword `default: "return_value"`
+
+```swift
+Dic["Unknown_key", default: "Unknown"] //return "Unknown" when Dic don't have the key "None"
+```
+
+### Creating empty collections
+
+Examples of creating an empty `Dictionary`, `Array` and `Set`.
+
+```swift
+var empty_dic = Dictionary<String, Int>()
+var empty_arr = Array<Int>()
+var empty_set = Set<Int>()
+```
+
+Swift has special syntax for `Dictionary` and `Array`.
+
+```swift
+var empty_dic = [String: Int]()
+var empty_arr = [Int]()
+```
+
+### Enumerations
+
+Enumerations or enums are types that are defined with several values. But only one value can be accessed each time
+
+```swift
+enum Result {
+		case success
+		case failure
+}
+
+let result = Result.failure  // result = failure
+```
+
+Enums can also store associated values attached to each case.
+
+```swift
+enum Activity {
+    case bored
+    case running(destination: String)
+    case talking(topic: String)
+    case singing(volume: Int)
+}
+
+let talking = Activity.talking(topic: "football")
+```
+
+Enums can also be assigned values.
+
+```swift
+enum Planet: Int {
+    case mercury
+    case venus 
+    case earth
+    case mars
+}
+```
+
+Swift will automatically assign each of those a number starting from 0.
+
+```swift
+Planet.mercury.rawValue // return 0
+```
