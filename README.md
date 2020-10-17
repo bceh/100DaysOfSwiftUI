@@ -201,3 +201,111 @@ Swift will automatically assign each of those a number starting from 0.
 ```swift
 Planet.mercury.rawValue // return 0
 ```
+
+## Day 3
+
+### Arthimatic Operators
+
+- addition `+`; subtraction `-`; multiplication `*`; division `/`; remainder `%`
+
+The addition `+` can also be used to join strings
+
+These operations can be used as assignment operators with `=`
+
+```swift
+var score = 95
+score += 5 // score now equals to 100
+```
+
+It also works with strings.
+
+### Comparison operators
+
+- equal `==`; not equal `!=`; less `<`; less equal `<=`;
+
+These also work with strings with natural alphabetical order.
+
+- AND `&&`; OR `||`
+
+### If statements
+
+- `if`; `else if` and `else` statements can be used to write conditions
+
+    ```swift
+    if false {
+    print ("1")
+    }else if true {
+    print("2")
+    } else {
+    print("3")
+    } // these will print out "2"
+    ```
+
+### The ternary operator
+
+The ternary operator is a **condition** plus **true or false blocks** all in one.
+
+It checks the condition specified in the **first** value, and if it’s true returns the **second** value, but if it’s false returns the **third** value.
+
+```swift
+let firstCard = 11
+let secondCard = 10
+// use the ternary operator
+print(firstCard == secondCard ? "Cards are the same" : "Cards are different")
+// it works as follows
+if firstCard == secondCard {
+    print("Cards are the same")
+} else {
+    print("Cards are different")
+}
+```
+
+### Switch statements
+
+The construct `switch case` can be used to write conditions.
+
+In this construct, one `default` case is needed.
+
+```swift
+let weather = "rain"
+switch weather {
+case "rain":
+    print("Bring an umbrella")
+case "snow":
+    print("Wrap up warm")
+case "sunny":
+    print("Wear sunscreen")
+		fallthrough
+default:
+    print("Enjoy your day!")
+}
+```
+
+Swift will default only run the code inside each case. If you want execution to continue on to the next case, use the `fallthrough` keyword.
+
+### Range operators
+
+`..<` and `...` operators can be used to *making ranges*.
+
+The half-open range operator, `..<`, creates ranges that **not** include the final value.
+
+The closed range operator, `...`, creates ranges that *include* the final value.
+
+e.g `1..<5` contains numbers 1, 2, 3, and 4;
+
+`1...5` contains numbers 1, 2, 3, 4, and 5
+
+Range can be used in `switch` blocks.
+
+```swift
+let score = 85
+
+switch score {
+case 0..<60:
+    print("Failed")
+case 60..<100:
+    print("Fine")
+default:
+    print("False")
+}
+```
