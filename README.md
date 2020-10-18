@@ -309,3 +309,81 @@ default:
     print("False")
 }
 ```
+
+## Day 4
+
+### Loops
+
+`for` loop with a range of numbers or an array:
+
+```swift
+let count = 1...10 // a range of numbers
+for number in count {
+    print("Number is \(number)")
+}
+
+let albums = ["Red", "1989", "Reputation"] // an array
+for album in albums {
+    print("\(album) is on Apple Music")
+}
+```
+
+if the constant is not needed, an underscore `_` is a better choice to avoid creating needless values:
+
+```swift
+print("Players gonna ")
+
+for _ in 1...5 {
+    print("play")
+}
+```
+
+`While` loop with a condition
+
+The condition will be checked every time **before** the execution 
+
+```swift
+var number = 1
+while number <= 20 {
+    print(number)
+    number += 1
+}
+```
+
+`repeat ... while` loop with a condition
+
+The condition will be checked every time **after** the execution 
+
+```swift
+var number = 1
+repeat {
+    print(number)
+    number += 1
+} while number <= 20
+```
+
+`break` can be used to exit a loop, but it will only exit the current loop.
+
+The following way allows us to exit multiple loops
+
+1. give the outside loop a label;
+2. the `break` and the label to exit the loops at the same time
+
+```swift
+loop1: while true {
+    while true{
+        break loop1
+    }
+}
+```
+
+`continue` can be used to skip the current condition
+
+```swift
+for i in 1...10 {
+    if i % 2 == 1 {
+        continue 
+    }
+    print(i) //it will not print odd numbers 
+}
+```
