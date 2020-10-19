@@ -387,3 +387,61 @@ for i in 1...10 {
     print(i) //it will not print odd numbers 
 }
 ```
+
+## Day 5
+
+### Function
+
+Swift use `func` keyword to define a function, followed by the name of the function.  
+
+The input parameter and its type is included in a parentheses `()`. The type of the output is given after `->` . The code of the function is included in a brace `{}`. 
+
+```swift
+func func_name(input parameter = 0: Int...) -> Int { //define a function
+		return parameter 
+}
+let output = func_name(input: 8) //calling a function
+```
+
+Swift allow two names for each parameter. the first `input` is used externally, the last `parameter` is used internally. 
+
+Swift allow to omit the external name by `_`. 
+
+Swift allow variadic parameters with `...` after the type of the value.
+
+Swift use `throw` keyword before their return type to raise Error.
+
+1. use `enum` to describe the errors to throw.
+
+    The errors must always be based on **Swift’s existing Error type**.
+
+    ```swift
+    enum PasswordError: Error {
+    		case obvious
+    }
+    ```
+
+2. use the `enum` in the function.
+
+    ```swift
+    func checkPassword(_ password: String) throws -> Bool {
+        if password == "password" {
+            throw PasswordError.obvious
+        }
+
+        return true
+    }
+    ```
+
+3. Swift use `do`, `try` and `catch` to handle errors.
+
+    ```swift
+    do {
+        try checkPassword("password")
+        print("That password is good!")
+    } catch {
+        print("You can't use that password.")
+    }
+    ```
+
+By default, all parameters passed into functions are **constants**. `inout` keyword can be used, which means they can be changed inside your function, and those changes reflect in the original value outside the function. But the input parameter should be a **variable**.
