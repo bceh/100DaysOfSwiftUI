@@ -445,3 +445,49 @@ Swift use `throw` keyword before their return type to raise Error.
     ```
 
 By default, all parameters passed into functions are **constants**. `inout` keyword can be used, which means they can be changed inside your function, and those changes reflect in the original value outside the function. But the input parameter should be a **variable**.
+
+## Day 6
+
+### Closures
+
+Closures are functions that work as any other types. 
+
+They can be assigned to a variable.
+
+```swift
+let driving = {
+    print("I'm driving in my car")
+}
+driving()
+```
+
+They can accept parameters, which is defined inside the open braces and listed before the `in` keyword. 
+
+```swift
+// define a closure with a `place` parameter
+let driving = { (place: String) in 
+    print("I'm going to \(place) in my car")
+}
+driving("London")
+```
+
+They can return values with `return` keyword.
+
+```swift
+let driving_to = { (place: String) -> String in
+    return "I'm going to \(place) in my car"
+}
+let message = driving_to("London")
+```
+
+They can be passed to a function as parameters. If the closure is only parameter, their type should be specified as `()-> Void` , which means that the function accepts no parameter and returns nothing (`Void`)
+
+```swift
+func travel(action: () -> Void) {
+    print("I'm getting ready to go.")
+    action()
+    print("I arrived!")
+}
+
+travel(action: driving)
+```
