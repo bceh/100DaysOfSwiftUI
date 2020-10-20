@@ -446,32 +446,22 @@ Swift use `throw` keyword before their return type to raise Error.
 
 By default, all parameters passed into functions are **constants**. `inout` keyword can be used, which means they can be changed inside your function, and those changes reflect in the original value outside the function. But the input parameter should be a **variable**.
 
-## Day 6
+## Day 6-7
 
 ### Closures
 
 Closures are functions that work as any other types. 
 
-They can be assigned to a variable.
+They can be assigned to a variable and then the variable is **callable**.
 
 ```swift
 let driving = {
     print("I'm driving in my car")
 }
-driving()
+driving() //calling the closure
 ```
 
-They can accept parameters, which is defined inside the open braces and listed before the `in` keyword. 
-
-```swift
-// define a closure with a `place` parameter
-let driving = { (place: String) in 
-    print("I'm going to \(place) in my car")
-}
-driving("London")
-```
-
-They can return values with `return` keyword.
+They can return values with `return` keyword, and the type of return value is listed before the `in` keyword. 
 
 ```swift
 let driving_to = { (place: String) -> String in
@@ -480,14 +470,120 @@ let driving_to = { (place: String) -> String in
 let message = driving_to("London")
 ```
 
-They can be passed to a function as parameters. If the closure is only parameter, their type should be specified as `()-> Void` , which means that the function accepts no parameter and returns nothing (`Void`)
+They can accept parameters, which is defined inside the open braces and listed before the `in` keyword. 
+
+```swift
+// define a closure with a `place` parameter
+let driving_to = { (place: String) in 
+    print("I'm going to \(place) in my car")
+}
+driving_to("London")
+```
+
+They can be passed to a **function** as **parameters**. 
+
+If the closure itself has no parameter and no return value, their type should be specified as `()-> Void` in the function.
 
 ```swift
 func travel(action: () -> Void) {
     print("I'm getting ready to go.")
-    action()
+    action() //calling the closure
     print("I arrived!")
 }
 
 travel(action: driving)
+```
+
+If the closure need a parameter, it should be declared inside a parentheses.
+
+```swift
+func travel_to(action: (String) -> Void) {
+    print("I'm getting ready to go.")
+    action("London")
+    print("I arrived!")
+}
+```
+
+The function can also accept a closure that can also return a value:
+
+```swift
+func travel_to(action: (String) -> String) {
+    print("I'm getting ready to go.")
+    let description = action("London")
+    print(description)
+    print("I arrived!")
+}
+```
+
+If the **last** parameter to a function is a closure, ****rather than pass in your closure as a parameter, you pass it directly **after the function inside braces,** which is called **trailing closure syntax:** 
+
+```swift
+travel() {
+    print("I'm driving in my car")
+}
+```
+
+If the closure is the **only parameter of the function** , the parentheses the can be eliminated entirely:
+
+```swift
+travel {
+    print("I'm driving in my car")
+}
+```
+
+Swift then allows a **shorthand** of the closure in the *tailing closure syntax*:
+
+e.g. we defined a `travel_to` function that need a closure with an input value and return value, it can be called as follow:
+
+```swift
+travel_to { (place: String) -> String in
+		return "I'm going to \(place) in my car"
+}
+```
+
+Because the type of input value and return value has already declared when we define the `travel_to` function, so they can be eliminated:
+
+```swift
+travel_to { place in
+    return "I'm going to \(place) in my car"
+}
+```
+
+If the closure only has one line code, and this code is the return value, the `return` key word can be eliminate:
+
+```swift
+travel_to { place in
+    "I'm going to \(place) in my car"
+}
+```
+
+Even the parameters of closure can be eliminated and the Swift will provide automatic names for them. We just named them with a dollar sign `$` followed an integer number counting from `0`:
+
+```swift
+travel_to { 
+    "I'm going to \($0) in my car"
+}
+```
+
+Closure can also be the return value of a function
+
+The follow shows how to declare it as a return value of a function:
+
+```swift
+func travel() -> (String) -> Void {
+		return {
+				print("I'm going to \($0)"
+		}
+}
+```
+
+Closure can also **interact** with variables outside the closure.
+
+```swift
+var counter = 0
+let count = {  
+		counter += 1
+}
+count()
+print(counter) // counter = 1
 ```
