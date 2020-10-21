@@ -587,3 +587,87 @@ let count = {
 count()
 print(counter) // counter = 1
 ```
+
+## Day 8
+
+### Structs
+
+Structs, or **structures**, allow to create self defined data types out of several small types.
+
+Use `struct` keyword to create a structure:
+
+```swift
+struct Sport {
+		var name: String // define a property `name`
+}
+var tennis = Sport(name: "Tennis") //create an instant
+print(tennis.name) //access the property
+tennis.name = "Lawn tennis" //change the property
+```
+
+Swift allows to define a **computed** property:
+
+```swift
+struct Sport {
+		var name: String // define a property `name`
+		var party: String {
+				return name + " party"
+		}
+}
+```
+
+**Property observers** are functions that run every time when the properties are changed
+
+`didSet` property observer will be run after the property changed
+
+```swift
+struct Counter {
+    var counter: Int {
+        didSet {
+            print("counter is \(counter)")
+        }
+    }
+}
+var counter = Counter(counter: 1)
+counter.counter = 2
+```
+
+`willSet` to take action before a property changes.
+
+Swift still use `func` keyword to define a **method** of a class.
+
+By default, Swift won't allow a method to change the properties. `mutating func` can be used to define a method which can change the property.
+
+```swift
+struct Person {
+    var name: String
+
+    mutating func makeAnonymous() {
+        name = "Anonymous"
+    }
+}
+var person = Person(name: "Ed")
+person.makeAnonymous()
+```
+
+The build-in string type is a struct
+
+It has `count` property to return its number of characters
+
+It has `hasPrefix()` method to check if it starts with specific letters
+
+It has `uppercased()` method to uppercase itself
+
+It has `sorted()` method to sort the letters and return an array.
+
+The build-in array is a struct
+
+It has `count` property to return the number of its items.
+
+It has `append()` method to add a new item
+
+It has `firstIndex()` method to return the index of a specific item, starting from `0`
+
+It has `sorted()` method to sort its items
+
+It has `remove()` method to remove a specific item.
