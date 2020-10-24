@@ -671,3 +671,68 @@ It has `firstIndex()` method to return the index of a specific item, starting fr
 It has `sorted()` method to sort its items
 
 It has `remove()` method to remove a specific item.
+
+## Day 9 
+
+### Special properties and methods
+
+`self`  represents the instance of the struct. the property of structs can be used inside the struct as `self.property`.
+
+The initializer in Swift is `init`
+
+No `func` before `init`, all properties are valued after the `init`
+
+i.g. a person struct:
+
+```swift
+struct Person {
+    var name: String
+
+    init(name: String) {
+        print("My name is \(name)")
+        self.name = name
+    }
+}
+```
+
+Swift allow `lazy` properties for those that does not use quite often. Swift will only create these `lazy` properties when it first accessed.
+
+```swift
+lazy var profession: String = ""
+```
+
+Swift allow `static` properties for only the class nor instances. 
+
+```swift
+struct Person {
+		static var classSize = 0
+    var name: String
+
+    init(name: String) {
+        self.name = name
+				Person.classSize += 1
+    }
+}
+var ed = Person(name: "ed")
+var ann = Person(name: "ann")
+print(Person.classSize) // print "2"
+```
+
+Swift allow `private` properties to control access. Only class method can access `private` properties.
+
+```swift
+struct Person {
+    var name: String
+		private var id: Int
+
+    init(name: String, id: Int) {
+        self.name = name
+				self.id = id
+    }
+		func get_id() -> Int{
+				return self.id
+		}
+}
+var ed = Person(name:"ed", id: 1234)
+print("\(ed.get_id())")
+```
