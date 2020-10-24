@@ -736,3 +736,98 @@ struct Person {
 var ed = Person(name:"ed", id: 1234)
 print("\(ed.get_id())")
 ```
+
+## Day 10
+
+### Classes
+
+Classes are similar to structs, but
+
+1. Classes always have a initializer for their properties
+
+    ```swift
+    class Person {
+    		var name: String
+    		var gender: String		
+
+    		init(name: String, gender: String) {
+    				self.name = name
+    				self.gender = gender
+    		}
+    }
+    var ed = Person(name: "ed", gender: "man")
+    ```
+
+2. Classes allow **inheritance,** and the child class can use `super` to call its parent class.
+
+    ```swift
+    class Man: Person {
+    		init(name: String) {
+    				super.init(name: name, gender: "man")
+    		}
+    }
+    var jo = Man(name: "jo")
+    ```
+
+    1. Child classes can `override func` over parent class.
+
+        ```swift
+        class Person {
+            func get_title() -> String{
+                return "Mr/Mrs"
+            }
+        }
+        class Man: Person {
+        		override func get_title() -> String {
+        				return "Mr"
+        		}
+        }
+        ```
+
+    2. `final` classes are classes that disallow inheritance. 
+
+        ```swift
+        final class Classname {
+        }
+        ```
+
+3. The copes of a class instance points to the same object in memory. 
+
+    ```swift
+    class Singer {
+    		var name = "Taylor Swift"
+    }
+    var singer = Singer()
+    var singerCopy = singer
+    singerCopy.name = "Justin Bieber"
+    print(singer.name) // print "Justin Bieber"	
+    ```
+
+4. Class can have deinitializers, `deinit`,  which are codes that run when its instance is destroyed.
+
+    ```swift
+    class Person {
+        var name: String
+        init(name: String) {
+    				self.name = name
+            print("\(self.name) is born")
+        }
+    		deinit {
+    				print("\(self.name) is pass away")
+    		}
+    }
+    var person = Person(name: "ed")
+    person = Person(name: "jo") 
+    ```
+
+5. constant `class` instance is **allowed** to change its variables. So unlike `struct`, there is no need the `mutating` keyword for class variables to be changed by its method.
+
+    ```swift
+    class Singer {
+        var name = "Taylor Swift"
+    }
+
+    let taylor = Singer()
+    taylor.name = "Ed Sheeran"
+    print(taylor.name) // print "Ed Sheeran"
+    ```
