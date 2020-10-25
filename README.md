@@ -831,3 +831,124 @@ Classes are similar to structs, but
     taylor.name = "Ed Sheeran"
     print(taylor.name) // print "Ed Sheeran"
     ```
+
+## Day 11
+
+Portocol-oriented Programming (POP)
+
+### An example:
+
+The following is an example to write a function that accepts `types` with an `id` property, but don't require a specific type.
+
+1. Create an `Identifiable` protocol:
+
+    ```swift
+    protocol Identifiable {
+    		var id: String { get set }
+    }
+    ```
+
+    It requires all conforming types to have an `id` string property that can be read, i.e. `get`, or written, i.e. `set`. 
+
+2. Write the `displayID()` function that accepts any `Identifiable` object:
+
+    ```swift
+    func displayID (_ thing: Identifiable) {
+    		print("My ID is \(thing.id)") // It will always have an id property.
+    }
+    ```
+
+3. A struct can be created which conforms the protocol and then can be used as an input for the function:
+
+    ```swift
+    struct User: Identifiable {
+    		var id: String
+    }
+    var user1 = User(id: "1")
+    displayID(user1)
+    ```
+
+### Protocol inheritance:
+
+Protocol allows **multiple inheritance**. 
+
+```swift
+protocol Payable {
+    func calculateWages() -> Int
+}
+protocol NeedsTraining {
+    func study()
+}
+protocol HasVacation {
+    func takeVacation(days: Int)
+}
+protocol Employee: Payable, NeedsTraining, HasVacation { }
+```
+
+### Extensions:
+
+Extensions can **add methods** to existing types. However, no stored properties is allowed in an extension, but **computed properties** is allowed. 
+
+```swift
+extension Int {
+		func squared() -> Int {
+				return self*self
+		}
+}
+extension Int {
+		var isEven: Bool {
+				return self % 2 == 0
+		}
+}
+```
+
+After extension, the type will have extended methods or computed properties
+
+```swift
+let number = 8
+number.squared()
+number.isEven
+```
+
+### Protocol Extensions:
+
+Protocol extensions can add methods or computed properties to a whole protocol so that **all conforming types.**
+
+e.g. Swift's arrays and sets both conform to a protocol called `Collection`, any protocol extensions to this protocol will affect both of them.
+
+```swift
+extension Collection {
+		func summarize() {
+				print("There are \(count) of us:")
+				for name in self {
+						print(name)
+				}
+		}
+}
+```
+
+Both `Array` and `Set` will now have that method.
+
+Protocol extensions can provide a default function style for objects that conforms the protocol. Then The early example can be rewrite as follows:
+
+```swift
+ protocol Identifiable {
+		var id: String { get set }
+		func displayID()
+}
+extension Identifiable {
+		func displayID() {
+				print("My ID is \(id).")
+		}
+}
+```
+
+Then the object that conforms to `Identifiable` will get `displayID()` function automatically:
+
+```swift
+struct User: Identifiable {
+		var id: String
+}
+var user1 = User(id: "1")
+user1.displayID()
+```
