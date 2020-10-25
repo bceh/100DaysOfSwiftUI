@@ -952,3 +952,142 @@ struct User: Identifiable {
 var user1 = User(id: "1")
 user1.displayID()
 ```
+
+`nil` and how to handle `nil` in Swift
+
+## Day 12
+
+### `nil`
+
+Swift use `nil` to represent *no value at all.*
+
+### Optionals
+
+An optional value is the variable that cloud store a value or could be `nil`. We can call an optional value by a question mark `?`.
+
+```swift
+var name: String? = nil
+name = 'ed'
+```
+
+### Unwrapping optional value
+
+Because `nil` doesn't belong to any type, so it doesn't have any built-in methods or properties of that type. To safety concern, Swift **won't** let us use them without **unwrapping** them first. 
+
+1. A common way to **unwrap** optionals is using `if let` syntax
+
+    ```swift
+    if let unwrapped = name {
+    		print("\(unwrapped.count) letters")
+    } else {
+    		print("Missing name.")
+    }
+    ```
+
+    If name holds a string, it will be put inside unwrapped as a regular String and we can read its count property inside the condition. Alternatively, if name is empty, the else code will be run.
+
+2. Another way is using `guard let` syntax. 
+
+    It is usually used at the start of a function to **check** the optional value. If the optional value is `nil`, it expects to exit the function.
+
+    ```swift
+    func greet(_ name: String?) {
+        guard let unwrapped = name else {
+            print("You didn't provide a name!")
+            return
+        }
+        print("Hello, \(unwrapped)!")
+    }
+    ```
+
+3. A convenient way is use `!` mark to **force** unwrap an optional value
+
+    ```swift
+    var name: String? = "ed"
+    print ("My name is \(name!)")
+    ```
+
+    It is usually used for functions that will return an optional value. We can use an exclamation mark `!` to force the function to return a normal value. However, it will crash if it returns `nil`.
+
+    e.g. `Int` will return an *optional Int* value, if the input is a number string, it will return the number, and it will return `nil` otherwise. We can use `!` mark to force it return a *regular Int* value. 
+
+    ```swift
+    let str = "5"
+    let num = Int(str)!
+    ```
+
+4. The nil coalescing operator `??` with a **default value** can be used to unwrap an optional. It will return the normal value if there is one or the default value if the optional is `nil`
+
+    ```swift
+    let anonymous: String? = nil
+    let ed: String? = "ed"
+    anonymous ?? "Anonymous" //return "Anonymous"
+    ed ?? "Anonymous" // return "ed" 
+    ```
+
+5. The question mark `?` can be used to unwrap an optional value in a series like `a?.b?.c` (**Optional Chaining**). If the optional is `nil`, the whole line will return `nil`, and the rest will be ignored.
+
+    ```swift
+    let anonymous: String? = nil
+    let ed: String? = "ed"
+    anonymous?.uppercased() // return nil
+    ed?.uppercased() // return "ED"
+    ```
+
+### Implicitly unwrapped optionals
+
+Implicitly unwrapped optionals are optionals that can be used as other normal values *without unwrapping*.
+
+It can be created by adding an exclamation mark `!` after the type name
+
+```swift
+var age: Int! = nil
+```
+
+Implicitly unwrapped optionals exist because sometimes a variable will start life as nil, but will always have a value before you need to use it. Because you know they will have a value by the time you need them, it’s helpful not having to write if let all the time.
+
+### Optional try
+
+there are two types of optional try `try?` and `try!`
+
+### Failable initializers
+
+Swift allow failable initializers `init?()` for structs and classes
+
+```swift
+struct Person {
+    var id: String
+
+    init?(id: String) {
+        if id.count == 9 {
+            self.id = id
+        } else {
+            return nil
+        }
+    }
+}
+```
+
+It will return `nil` other than an instance if it fail to initialize. 
+
+### Typecasting (类型转换)
+
+Typecasting, or type conversion, is a method of changing an entity from one data type to another. It is helpful when working with protocols and class inheritance. 
+
+Optionals are also used in typecasting, i.e. it is used to check whether an instance belongs to a class. `as?` keyword is used, which returns an optional: it will be `nil` if the typecast failed, or a converted type otherwise.
+
+```swift
+class Animal { }
+class Fish: Animal { }
+class Dog: Animal {
+    func makeNoise() {
+        print("Woof!")
+    }
+}
+let pets = [Fish(), Dog(), Fish(), Dog()]
+for pet in pets {
+    if let dog = pet as? Dog {
+        dog.makeNoise()
+    }
+}
+```
