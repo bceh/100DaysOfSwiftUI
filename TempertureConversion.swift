@@ -1,9 +1,3 @@
-//
-//  ContentView.swift
-//  convert
-//
-//  Created by Bingqing Cheng on 28/10/20.
-//
 
 import SwiftUI
 
