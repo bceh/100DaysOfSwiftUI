@@ -10,6 +10,7 @@ struct ContentView: View {
         VStack{
             VStack{
                 Text("your score is \(score)")
+                Text("My choice is \(moves[move])")
                 Text("You need to \(isWin ? "win" : "lose")")
             }
             
