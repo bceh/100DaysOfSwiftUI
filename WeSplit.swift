@@ -2,8 +2,9 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var checkAmount = ""
-    @State private var numberOfPeople = ""
+    @State private var numberOfPeople = 2
     @State private var tipPercentage = 2
+    
     let tipPercentages = [5,10,20,25,0]
     
     var grandTotal: Double {
@@ -12,16 +13,17 @@ struct ContentView: View {
         
         let tipValue = orderAmount / 100 * tipSelection
         let totalAmount = orderAmount + tipValue
-
+        
         return totalAmount
     }
     
     var totalPerPerson: Double {
-        let peopleAmount = Double(numberOfPeople) ?? 1
-        let amountPerPerson = grandTotal / peopleAmount
-        
+        let peropleCount = Double(numberOfPeople + 2)
+        let amountPerPerson = grandTotal / peropleCount
+
         return amountPerPerson
     }
+    
     
     var body: some View {
         NavigationView {
@@ -30,12 +32,13 @@ struct ContentView: View {
                     TextField("Amount", text: $checkAmount)
                         .keyboardType(.decimalPad)
 
-                    TextField("Number of people", text: $numberOfPeople)
-                        .keyboardType(.numberPad)
-                        
+                    Picker("Number of people", selection: $numberOfPeople) {
+                        ForEach(2 ..< 15) {
+                            Text("\($0) people")
+                        }
                     }
+                }
                 
-        
                 Section(header: Text("How much tip do you want to leave?")) {
                     Picker("Tip percentage", selection: $tipPercentage) {
                         ForEach(0 ..< tipPercentages.count) {
@@ -47,6 +50,7 @@ struct ContentView: View {
                 
                 Section (header: Text("Total Amount")){
                     Text("$\(grandTotal, specifier: "%.2f")")
+                        .foregroundColor(tipPercentage == 4 ? .red : .black)
                 }
                 
                 Section (header: Text("Amount per person")){
@@ -57,7 +61,6 @@ struct ContentView: View {
         }
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
